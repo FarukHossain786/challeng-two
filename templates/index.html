@@ -10,6 +10,11 @@
 <div class="content">
     <h1 style="text-align: center">Search</h1>
 
+    <h1>Video count from channel</h1>
+    {% for res in response %}
+    <p>{{ res }}  <a href="{{ res }}"> &nbsp; {{ response[res] }}</a> </p>
+    {% endfor %}
+
     <div class="form">
         <form action="/review" method="POST">
             <input type="text" name="content" id="content">
