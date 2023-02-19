@@ -11,9 +11,13 @@ app=application
 @app.route('/')
 @cross_origin()
 def index():
-    obj = Totalvideos.Totalvideos()
-    response = obj.videos()
-    return render_template('index.html', response = response)
+    if not request.args.get('find'):
+        response = ''
+        return render_template('index.html', response = response)
+    else: 
+        obj = Totalvideos.Totalvideos()
+        response = obj.videos()
+        return render_template('index.html', response = response)
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=8000, debug=True)
