@@ -20,21 +20,31 @@
    <div class="header">Reviews</div>
 
    <table cellspacing="0">
-      <tr>
-         <th>Product</th>
-         <th>Name</th>
-         <th>Rating</th>
-         <th>Comment Heading</th>
-         <th width="230">Comments</th>
-      </tr>
-         {% for review in reviews %}
-      <tr>
-          <td>{{review['Product']}}</td>
-         <td>{{review['Name']}}</td>
-         <td>{{review['Rating']}}</td>
-         <td>{{review['CommentHead']}}</td>
-         <td>{{review['Comment']}} </td>
-       {% endfor %}
+      <tbody>
+        <tr>
+          <td>Title</td>
+          <td>{{ response['title'] }}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Description</td>
+          <td>{{ response['description'] }}</td>
+        </tr>
+        <tr>
+          <td colspan="2" style="text-align: center;"><h3>Commennts</h3></td>
+        </tr>
+        {% for c in response['commentLists'] %}
+        <tr>
+          <td>{{ c['name'] }}</td>
+          <td>{{ c['comment'][0]['text'] }}</td>
+        </tr>
+        {% endfor %}
+
+
+      </tbody>
    </table>
 </div>
 
