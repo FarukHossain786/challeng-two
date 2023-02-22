@@ -40,9 +40,15 @@ class Details():
                     try:
                         name = i['commentThreadRenderer']['comment']['commentRenderer']['authorText']['simpleText']
                         comment = i['commentThreadRenderer']['comment']['commentRenderer']['contentText']['runs']
-                        self.table_insert(name, comment, last_setails_row_id)
                         list = {"name":name, "comment":comment}
                         name_comment_list.append(list)
+                        
+                        try:
+                            self.table_insert(name, comment, last_setails_row_id)
+                        except:
+                            logging.info("Insersation issue 3")
+                        
+                        
                     except:
                         logging.info("Name details not exist")
 
@@ -94,7 +100,11 @@ class Details():
                             comment = i['commentThreadRenderer']['comment']['commentRenderer']['contentText']['runs']
                             list = {"name":name, "comment":comment}
                             #append data to comment table
-                            self.table_insert(name, comment, last_setails_row_id)
+                            try:
+                                self.table_insert(name, comment, last_setails_row_id)
+                            except:
+                                logging.info("Data insersation issue 2")
+
                             name_comment_list.append(list)
                         except:
                             logging.info("Name details not exist")
@@ -135,13 +145,14 @@ class Details():
                 cursor.execute(sql, (title, description))
                 connection.commit()
                 last_setails_row_id  = cursor.lastrowid
-                if last_setails_row_id:
+
+            except:
+                last_setails_row_id = 1
+
+            if last_setails_row_id:
                     main_list_of_all_comment = self.find_commend(main_script, last_setails_row_id)
                     response = {"title": title, "description": description, "commentLists": main_list_of_all_comment}
                     return response
-
-            except:
-                logging.info('Insert sql issue')
             
         except Exception as ex:
             print("First Request", ex)

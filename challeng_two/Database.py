@@ -11,7 +11,7 @@ class Database():
                 host="localhost",
                 user="root",
                 password="password",
-                database="challengtwo"
+                database="challengtwo1"
             )
             return  mydb
         except:
