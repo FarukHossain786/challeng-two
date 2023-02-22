@@ -49,19 +49,23 @@ class Totalvideos():
         try:
             total_count ={}
             for url in urls:
-                uclient = uReq(url)
-                mainpage = uclient.read()
-                main_html = bs(mainpage ,"html.parser")
-                main_script = main_html.find_all("script")
-                main_text =  (main_script[33]).text
-                new_text = main_text[20:-1]
-                json_data = json.loads(new_text)
-                video_render = json_data['contents']['twoColumnBrowseResultsRenderer']['tabs'][1]['tabRenderer']['content']['richGridRenderer']['contents']
-                response = self.count_fun(video_render, self.count)
-                total_count[url] = response
+                try:
+                    uclient = uReq(url)
+                    mainpage = uclient.read()
+                    main_html = bs(mainpage ,"html.parser")
+                    main_script = main_html.find_all("script")
+                    main_text =  (main_script[34]).text
+                    new_text = main_text[20:-1]
+                    json_data = json.loads(new_text)
+                    video_render = json_data['contents']['twoColumnBrowseResultsRenderer']['tabs'][1]['tabRenderer']['content']['richGridRenderer']['contents']
+                    response = self.count_fun(video_render, self.count)
+                    total_count[url] = response
+                except Exception as ex:
+                     logging.info(f'First Request problem {main_html}')
 
-        except:
-            logging.info('First Request problem')
+
+        except Exception as ex:
+            logging.info(f'First Request problem {ex}')
 
 
         return total_count
