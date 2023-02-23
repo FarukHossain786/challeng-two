@@ -8,10 +8,10 @@ class Database():
     def mysql_connect(self):
         try:
             mydb = mysql.connector.connect(
-                host="localhost",
-                user="root",
-                password="password",
-                database="challengtwo1"
+                host="inuron.c6nc2dyhcuvl.ap-south-1.rds.amazonaws.com",
+                user="admin",
+                password="qwertyuiop",
+                database="youtube"
             )
             return  mydb
         except:
